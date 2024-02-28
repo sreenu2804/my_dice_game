@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+        <script>
+            function rollDice() {
+                // Simulate user's dice roll (1 to 6)
+                var userDiceRoll = Math.floor(Math.random() * 6) + 1;
+                // Display the user's dice roll result
+                document.getElementById('user-dice-result').innerText = 'Your Dice Roll: ' + userDiceRoll;
+                // Get the current user score
+                var userScore = parseInt(document.getElementById('user-score').innerText);
+                // Calculate the new user score
+                var newUserScore = userScore + userDiceRoll;
+                // Check if the new score is exactly 25
+                if (newUserScore === 25) {
+                    // Show victory message
+                    var playAgain = confirm("Congratulations! You won with a score of " + newUserScore + ". Do you want to play again?");
+                    if (playAgain) {
+                        // Reset scores and start a new game
+                        resetGame();
+                    } else {
+                        // Redirect to the thank you page
+                        window.location.href = "/thank_you";
+                    }
+                    return;
+                } else if (newUserScore > 25) {
+                    // Reset the score if it exceeds 25
+                    newUserScore = userScore;
+                }
+                // Update the user's score
+                document.getElementById('user-score').innerText = newUserScore;
+                // Simulate robot's dice roll (1 to 6)
+                var robotDiceRoll = Math.floor(Math.random() * 6) + 1;
+                // Display the robot's dice roll result
+                document.getElementById('robot-dice-result').innerText = 'Robot\'s Dice Roll: ' + robotDiceRoll;
+                // Get the current robot score
+                var robotScore = parseInt(document.getElementById('robot-score').innerText);
+                // Calculate the new robot score
+                var newRobotScore = robotScore + robotDiceRoll;
+                // Check if the new score is exactly 25
+                if (newRobotScore === 25) {
+                    // Show victory message
+                    var playAgain = confirm("Oops! The robot won with a score of " + newRobotScore + ". Do you want to play again?");
+                    if (playAgain) {
+                        // Reset scores and start a new game
+                        resetGame();
+                    } else {
+                        // Redirect to the thank you page
+                        window.location.href = "/thank_you";
+                    }
+                    return;
+                } else if (newRobotScore > 25) {
+                    // Reset the score if it exceeds 25
+                    newRobotScore = robotScore;
+                }
+
+                // Update the robot's score
+                document.getElementById('robot-score').innerText = newRobotScore;
+            }
+            function resetGame() {
+                // Reset scores and start a new game
+                document.getElementById('user-score').innerText = '0';
+                document.getElementById('robot-score').innerText = '0';
+                document.getElementById('user-dice-result').innerText = 'Your Dice Roll: 0';
+                document.getElementById('robot-dice-result').innerText = 'Robot\'s Dice Roll: 0';
+            }
+        </script>
+    <style>
+        /* Add CSS styles for enhanced design */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        .dice-result {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .score {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Dice Game</h1>
+    <div class="dice-result" id="user-dice-result">Your Dice Roll: 0</div>
+    <div class="score">Your Score: <span id="user-score">0</span></div>
+    <div class="dice-result" id="robot-dice-result">Robot's Dice Roll: 0</div>
+    <div class="score">Robot's Score: <span id="robot-score">0</span></div>
+    <button onclick="rollDice()">Roll Dice</button>
+</body>
+</html>
